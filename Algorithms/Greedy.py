@@ -1,10 +1,3 @@
-'''
-check whether greedy MSD can outperform bki
-'''
-
-# implement many filtering method, try to improve the bke-H method performance.
-# if the filtering is good enough, then bke-H (when k is large) should give very good performance.
-
 import numpy as np
 import torch
 import time
