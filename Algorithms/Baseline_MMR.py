@@ -1,7 +1,3 @@
-
-'''
-所有的结果， ranking都删掉了。但是mac本地还有。
-'''
 import time
 import os
 import sys
