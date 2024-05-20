@@ -1,10 +1,3 @@
-'''
-3000 for movielen
-900 for netflix
-batch size 32 最快。
-'''
-
-
 import pandas as pd
 
 import time, random
