@@ -212,8 +212,8 @@ def main(dataset_name):
 
         for strategy in strategies:
 
-            thetas =  known_best_param[data_name][regim]
-            # thetas = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.99]
+            
+            thetas = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.99]
 
             for theta_factor in [thetas]:
 
