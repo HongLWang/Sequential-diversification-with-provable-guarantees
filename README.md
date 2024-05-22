@@ -13,7 +13,7 @@ In order to reproduce the experiments, please follow the steps:
 - KuaiRec: https://kuairec.com/
 
 ### 3. Preprocess the datasets 
-- Specify the path folder in which you store the raw data by filling the lines of code where <span style="color:blue">"SPECIFY_DATA_FOLDER"</span> appears.
+- Specify the path folder in which you store the raw data in "RawData" folder, or specify your own location.
 - In `preprocessing.py`, you can choose which dataset to preprocess. The processed data will be available under `output` folder.
 
 ### 4. Obtain relevance score (item continuation probability in our paper)
