@@ -1,4 +1,4 @@
-# Relevance-aware sequential diversification
+# Sequential diversification with provable guarantees
 
 ### USAGE
 In order to reproduce the experiments, please follow the steps:
