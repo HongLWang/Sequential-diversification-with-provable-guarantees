@@ -99,7 +99,7 @@ def main_recommendation_datasets(dataset_name, regime, k_length, user_budget, nu
         default_alphas = [0.0001, 0.001, 0.01, 0.5, 0.1, 1, 2, 3, 4]  # current experiments are with alpha=0.5
 
 
-    whole_rating_predicted = np.load(f'../../OMSD/rating_{dataset_name}.npy')
+    whole_rating_predicted = np.load(f'../../ProcessedData/rating_{dataset_name}.npy')
     whole_rating_predicted = map2range(dataset_name, regime, whole_rating_predicted, regimes_mapping_vocab)
     models_dict = instantiate_models(strategies, n_users, n_items, items_items_distances, items_genres_matrix, whole_rating_predicted,
                                      device, clip_min, clip_max, EVALUATE, dataset_name, jaccard_distance)
