@@ -29,6 +29,6 @@ In order to reproduce the experiments, please follow the steps:
 - In folder `strtegy`, you can find baseline algorithm `EXPLORE.py`.
 - The average MaxSSD objective values as long as their standard derivation for each dataset are saved in folder `Result`.
 - The rankings of items each algorithm returns are saved in the folder `ranking`.
-- The expected serendipity and expected DCG are saved in the folder `expected_metrics`.
+- In the folder `Evaluate_EXP_Metric`, you can calculate the expected serendipity and expected DCG. The results are saved in the folder `expected_metrics`.
 
 
