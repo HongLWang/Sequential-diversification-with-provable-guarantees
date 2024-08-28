@@ -241,3 +241,115 @@ def save_ranking_2file(dataset_name, k_param, regime, ranking, strategy):
         for row in ranking:
             row_string = ','.join(map(str, row))
             writer.write(row_string + '\n')
+
+
+
+def map2range(dataset_name, regime, ratings, regimes_mapping_vocab):
+    mapping_range = regimes_mapping_vocab[regime]
+    if dataset_name in  {"movielens", "KuaiRec", "coat", "yahoo", "netflix"}:
+        if regime in ["small", "medium", "large"]:
+            rating_mapped = np.interp(ratings, (1, 5), mapping_range)
+        elif regime == "full":
+            rating_mapped = np.interp(ratings, (1, 5), [0.1, 0.9])
+        else:
+            raise ValueError(f"Invalid regime: {regime}")
+
+    elif dataset_name in ['LETOR']: # 0 1 2 mapped to 0.3, 0.5, 0.7
+        if regime in ["small", "medium", "large"]:
+            rating_mapped = np.interp(ratings, (0, 2), mapping_range)
+        elif regime == "full":
+            rating_mapped = one2one_mapping(ratings, dataset_name)
+
+    elif dataset_name in ["LTRC", "LTRCB"]:
+        if regime in ["small", "medium", "large"]:
+            rating_mapped = np.interp(ratings, (0, 4), mapping_range)
+        elif regime == "full":
+            rating_mapped = one2one_mapping(ratings, dataset_name)
+
+    return rating_mapped
+
+
+def one2one_mapping(matrix_before_mapping, dataset_name):
+    if len(matrix_before_mapping.shape) == 1: # input is array
+        matrix_before_mapping = matrix_before_mapping.reshape(1,-1)
+
+    matrix_after_mapping = np.zeros((matrix_before_mapping.shape[0], matrix_before_mapping.shape[1]))
+    if dataset_name == 'LETOR': # 012 map to .3 .5 .7
+        for i in range(matrix_before_mapping.shape[0]):
+            for j in range(matrix_before_mapping.shape[1]):
+                ele = matrix_before_mapping[i, j]
+                if ele == 0:
+                    matrix_after_mapping[i, j] = 0.3
+                elif ele == 1:
+                    matrix_after_mapping[i, j] = 0.5
+                elif ele == 2:
+                    matrix_after_mapping[i, j] = 0.7
+                else:
+                    raise ValueError('Unexpected element {}'.format(ele))
+    elif dataset_name in ['LTRC', 'LTRCB']: # 01234 to .1 .3 .5 .7 .9
+        for i in range(matrix_before_mapping.shape[0]):
+            for j in range(matrix_before_mapping.shape[1]):
+                ele = matrix_before_mapping[i, j]
+                if ele == 0:
+                    matrix_after_mapping[i, j] = 0.1
+                elif ele == 1:
+                    matrix_after_mapping[i, j] = 0.3
+                elif ele == 2:
+                    matrix_after_mapping[i, j] = 0.5
+                elif ele == 3:
+                    matrix_after_mapping[i, j] = 0.7
+                elif ele == 4:
+                    matrix_after_mapping[i,j] = 0.9
+                else:
+                    raise ValueError('Unexpected element {}'.format(ele))
+    else:
+        raise ValueError('Unexpected dataset_name')
+    if matrix_after_mapping.shape[0] == 1:
+        matrix_after_mapping = np.squeeze(matrix_after_mapping)
+    return matrix_after_mapping
+
+
+def ensure_folder_exists(folder_path):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        print(f"Folder '{folder_path}' created.")
+    else:
+        pass
+
+
+# expected number of items that user will check
+# number of new items user will explore, compared to given rating matrix.
+# ohhhhh old raw data needed...large amount of work...
+
+import os
+
+def expect_num_acceptance(dataset_name, method_list, regime_list,topk):
+
+    rating_interploted_fp = f'../OMSD/rating_{dataset_name}.npy'
+    rating_interploted = np.load(rating_interploted_fp)
+    n_users, n_items = rating_interploted.shape
+
+    def single_acceptance(ranking, item_continue_p, mapping_range):
+        item_continue_p = np.interp(item_continue_p, (1,5), mapping_range) # 0.1-0.3 for small regime, 0.4-0.6 for medium and 0.7-0.9 for large
+        ranking_prob = item_continue_p[ranking]
+        accu_continue_prob = np.cumprod(ranking_prob)
+        next_reject_prob = np.ones(len(ranking_prob))
+        next_reject_prob[:-1] = 1-ranking_prob[1:]
+
+        # prob of accepting 1,2,3,...items
+        acc_num_prob = np.multiply(accu_continue_prob, next_reject_prob)
+        # accepting 1,2,3...items
+        acc_num_arr = np.arange(len(ranking))
+
+        acc_num_exp = np.sum(np.multiply(acc_num_prob, acc_num_arr))
+        return acc_num_exp
+
+
+
+def delete_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"File '{file_path}' has been deleted.")
+    else:
+        print(f"File '{file_path}' does not exist.")
+
