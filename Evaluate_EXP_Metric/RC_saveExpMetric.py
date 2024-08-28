@@ -9,7 +9,7 @@ from utils import *
 def obtain_filepath(dataset_name, method, regime):  # both old data and new data are of the same saving format
 
     directory = "ranking"
-    pattern =  dataset_name + '_*_*_' + regime + '_EXPLORE.txt'
+    pattern =  dataset_name + '_*_' + regime + '_{method}.txt'
     pattern = os.path.join(directory, pattern)
     matching_files = glob.glob(pattern)
 
