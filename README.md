@@ -16,7 +16,8 @@ In order to reproduce the experiments, please follow the steps:
 
 ### 3. Preprocess the datasets 
 - Specify the path folder in which you store the raw data in default "RawData" folder, or specify your own location.
-- In `preprocessing.py`, you can choose which dataset to preprocess. The processed data will be available under `output` and `ProcessedData` folder.
+- In `preprocessing.py`, you can choose which dataset (in recommendation datasets) to preprocess. The processed data will be available under `output` folder.
+- In `preprocessing_IR.py`, you can choose which dataset (in information retrieval datasets) to preprocess. The processed data will be available under the folder `ProcessedData`.
 
 ### 4. Obtain relevance score (item continuation probability in our paper)
 - Run `MF_main.py` to train the Matrix Factorization model that provides the relevance scores. The completed rating matrix will be saved under the folder `ProcessedData`. Note that you this works for the recommendation datasets. The relevance score is provided for information retrieval datasets (LETOR and LTRC), and obtained during preprocessing.

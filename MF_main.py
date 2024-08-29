@@ -20,7 +20,7 @@ from results import compute_evaluations
 def main():
 
     datasets = ["movielens", "coat", "KuaiRec", "netflix", "yahoo"]
-    datasets = ["movielens", "KuaiRec", "netflix", "yahoo"]
+    datasets = ["coat"]
 
     for dataset_name in datasets:
 
@@ -165,8 +165,8 @@ def main():
 
         completed_rating = model(torch.tensor(list(range(n_users)), device=device).unsqueeze(-1),
                              torch.tensor(list(range(n_items)), device=device)).detach().cpu().numpy().clip(1,5)
-        rating_filepath = os.path.join(Processed_folder_path, dataset_name+'_rating.pkl')
-        pickle.dump(completed_rating, open(rating_filepath, 'wb'))
+        rating_filepath = os.path.join(Processed_folder_path, dataset_name+'_rating.npy')
+        np.save(open(rating_filepath, 'wb'), completed_rating)
 
 
 if __name__ == '__main__':
