@@ -26,7 +26,7 @@ To reproduce the experiments, please follow the steps:
 - In folder `Algorithms_*` you can find our proposed algorithms `B-tau-I.py` and `B-tau-I-H.py`, as well as baseline algorithms `Baseline_DPP.py`, `Baseline_DUM.py`, `Baseline_MSD.py`, `Baseline_MMR.py`, `Baseline_Random.py`, `Baseline_EXPLORE.py`.
 - The average MaxSSD objective values as long as their standard derivation for each dataset are saved by default in folder `results`.
 - The rankings of items each algorithm returns are saved by default in the folder `ranking`.
-- In the folder `Evaluate_EXP_Metric`, you can calculate the expected serendipity and expected DCG. The results are saved in the folder `expected_metrics`.
+- In the folder `Evaluate_EXP_Metric`, you can run python file `IR_saveExpMetric.py` and `RC_saveExpMetric.py` to calculate the expected serendipity and expected DCG. The results are saved in the folder `expected_metrics`.
 - `Algorithms_RC` works for the recommendation datasets, and `Algorithms_IR` works for Information Retrivial datasets. Note that there is a smarter way to merge all the files :).
 
 
