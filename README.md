@@ -16,19 +16,17 @@ In order to reproduce the experiments, please follow the steps:
 
 ### 3. Preprocess the datasets 
 - Specify the path folder in which you store the raw data in default "RawData" folder, or specify your own location.
-- In `preprocessing.py`, you can choose which dataset (in recommendation datasets) to preprocess. The processed data will be available under `output` folder.
-- In `preprocessing_IR.py`, you can choose which dataset (in information retrieval datasets) to preprocess. The processed data will be available under the folder `ProcessedData`.
+- In `preprocessing.py`, you can choose which dataset to preprocess. The processed data will be available under `output` folder.
 
 ### 4. Obtain relevance score (item continuation probability in our paper)
-- Run `MF_main.py` to train the Matrix Factorization model that provides the relevance scores. The completed rating matrix will be saved under the folder `ProcessedData`. Note that you this works for the recommendation datasets. The relevance score is provided for information retrieval datasets (LETOR and LTRC), and obtained during preprocessing.
+- Run `MF_main.py` to train the Matrix Factorization model that provides the relevance scores. The completed rating matrix will be saved under the folder `ProcessedData`. Note that this works for the recommendation datasets. The relevance score is provided for information retrieval datasets (LETOR and LTRC), and obtained during preprocessing.
 
 ### 5. Run the algorithms 
 #### Note that you can skip step 3 and 4 because the processed data for the "coat" dataset is provided. You can run the following code on "coat" dataset.
-- In folder `Algorithms` you can find our proposed algorithms `B-tau-I.py`, `B-tau-I-H.py` and `Greedy.py`.
-- Also in folder `Algorithms` you can find baseline algorithms `Baseline_DPP.py`, `Baseline_DUM.py`, `Baseline_MSD.py`, `Baseline_MMR.py`, `Baseline_Random.py`.
-- In folder `strtegy`, you can find baseline algorithm `EXPLORE.py`.
-- The average MaxSSD objective values as long as their standard derivation for each dataset are saved in folder `Result`.
-- The rankings of items each algorithm returns are saved in the folder `ranking`.
+- In folder `Algorithms_*` you can find our proposed algorithms `B-tau-I.py` and `B-tau-I-H.py`, as well as baseline algorithms `Baseline_DPP.py`, `Baseline_DUM.py`, `Baseline_MSD.py`, `Baseline_MMR.py`, `Baseline_Random.py`, `Baseline_EXPLORE.py`.
+- The average MaxSSD objective values as long as their standard derivation for each dataset are saved by default in folder `results`.
+- The rankings of items each algorithm returns are saved by default in the folder `ranking`.
 - In the folder `Evaluate_EXP_Metric`, you can calculate the expected serendipity and expected DCG. The results are saved in the folder `expected_metrics`.
+- `Algorithms_RC` works for the recommendation datasets, and `Algorithms_IR` works for Information Retrivial datasets. Note that there is a smarter way to merge all the files :).
 
 
